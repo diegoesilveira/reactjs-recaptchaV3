@@ -27,12 +27,11 @@ export class Form extends Component {
           token: this.state.token 
        })
          .then((response) => {
-             if(response.data === 200){
-               console.log(response.data);
-             }})
+             console.log("Enviado");})
 
          .catch((error) => {
-            alert('Erro ao enviar token. ', error);
+            //alert('Erro ao enviar token. ', error);
+            console.log("Erro");
          });
   }
 
@@ -45,7 +44,7 @@ export class Form extends Component {
   render() {
     let confirmation = this.state.messageSent ? (
       <div>
-        Token enviado:
+        Token V3:
         <br /> <br />
         {this.state.token}
       </div>
