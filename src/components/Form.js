@@ -7,40 +7,34 @@ import api from "../services/api";
 
 export class Form extends Component {
   state = {
-   token : "",
+    token: "",
     messageSent: false,
   };
 
-
-
   sendMessage = () => {
-    this.recaptcha.execute().then(value => {
-        this.setState({token: value});
-    this.sendTokenBack();   
-        
+    this.recaptcha.execute().then((value) => {
+      this.setState({ token: value });
+      this.sendTokenBack();
     });
-    
   };
 
- async sendTokenBack() {
-   await api.post('token', {
-          token: this.state.token 
-       })
-         .then((response) => {
-             console.log("Enviado");})
+  async sendTokenBack() {
+    await api
+      .post("token", {
+        token: this.state.token,
+      })
+      .then((response) => {
+        console.log(this.state.token);
+        alert("Enviado");
+      })
 
-         .catch((error) => {
-            //alert('Erro ao enviar token. ', error);
-            console.log("Erro");
-         });
+      .catch((error) => {
+        //alert('Erro ao enviar token. ', error);
+        alert("Erro ao enviar token");
+      });
   }
 
-  onResolved = () => {
-    this.setState({ messageSent: true });
-    // Process Data //
-  
-  };
-
+ 
   render() {
     let confirmation = this.state.messageSent ? (
       <div>
@@ -54,9 +48,9 @@ export class Form extends Component {
         <React.Fragment>
           <AppBar title="Recaptcha V3 Demo" />
           {confirmation}
-        
+
           <br />
-         
+
           <br />
           <RaisedButton
             label="Enviar token"
@@ -66,7 +60,6 @@ export class Form extends Component {
           <Recaptcha
             ref={(ref) => (this.recaptcha = ref)}
             sitekey="6Lc9ZLIZAAAAAJUKhKsO1B0K62l41V45bGbkYMg5"
-            onResolved={this.onResolved}
           />
         </React.Fragment>
       </MuiThemeProvider>
