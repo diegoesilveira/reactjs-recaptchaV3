@@ -3,13 +3,16 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import AppBar from "material-ui/AppBar";
 import RaisedButton from "material-ui/RaisedButton";
 import Recaptcha from "react-google-invisible-recaptcha";
+import RecaptchaV2 from "react-google-recaptcha";
 import api from "../services/api";
 
 export class Form extends Component {
   state = {
     token: "",
-    messageSent: false,
+    visible : true
   };
+
+  
 
   sendMessage = () => {
     this.recaptcha.execute().then((value) => {
@@ -26,41 +29,48 @@ export class Form extends Component {
       .then((response) => {
         console.log(this.state.token);
         alert("Enviado");
+        
       })
 
       .catch((error) => {
-        //alert('Erro ao enviar token. ', error);
+        this.setState({ visible: false });
         alert("Erro ao enviar token");
       });
   }
 
  
   render() {
-    let confirmation = this.state.messageSent ? (
-      <div>
-        Token V3:
-        <br /> <br />
-        {this.state.token}
-      </div>
-    ) : null;
+
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Recaptcha V3 Demo" />
-          {confirmation}
+          <AppBar title="Recaptcha Demo" />
 
           <br />
-
           <br />
+
           <RaisedButton
             label="Enviar token"
             style={StyleSheet.button}
             onClick={this.sendMessage}
           />
-          <Recaptcha
-            ref={(ref) => (this.recaptcha = ref)}
-            sitekey="6Lc9ZLIZAAAAAJUKhKsO1B0K62l41V45bGbkYMg5"
-          />
+          {this.state.visible && (
+            <Recaptcha
+              ref={(ref) => (this.recaptcha = ref)}
+              sitekey="6Lc9ZLIZAAAAAJUKhKsO1B0K62l41V45bGbkYMg5"
+            />
+          )}
+
+          {!this.state.visible && (
+            <RecaptchaV2
+              ref={(ref) => (this.recaptcha = ref)}
+              theme="light"
+              type="image"
+              sitekey="6Lc9ZLIZAAAAAJUKhKsO1B0K62l41V45bGbkYMg5"
+            />
+          )}
+
+         
         </React.Fragment>
       </MuiThemeProvider>
     );
