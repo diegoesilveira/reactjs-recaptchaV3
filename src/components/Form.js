@@ -54,7 +54,7 @@ import api1 from "../services/api";
        })
        .then(async ({ data }) =>{
            console.log('dados v2',data);
-         alert("Pontuação: " + data.score);
+         // alert("Pontuação: " + data.score);
             await this.setState({ loading:true });
            if(data.success){
                await this.setState({ visible: true, logado: true  });
