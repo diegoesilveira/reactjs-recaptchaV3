@@ -5,7 +5,6 @@ import RaisedButton from "material-ui/RaisedButton";
 import Recaptcha from "react-google-invisible-recaptcha";
 import RecaptchaV2 from "react-google-recaptcha";
 import api from "../services/api";
-import api1 from "../services/api";
 
  export class Form extends Component {
    state = {
@@ -89,9 +88,9 @@ import api1 from "../services/api";
                ref={(ref) => (this.recaptcha = ref)}
                sitekey="6Lfi_LAZAAAAAHtCuTsaB9kEbvRqvcREmNtdFiCf"
 
-            />) : !this.state.loading ? (<div><RecaptchaV2 ref={(ref) => (this.recaptcha = ref)}
+            />) : (<div><RecaptchaV2 ref={(ref) => (this.recaptcha = ref)}
                  sitekey="6LcztrwZAAAAADEmAqbYHp8Judq8f7hL3yocoWi7"
-               /> </div>) : <h1>Carregando...</h1>}
+               /> </div>) }
          </React.Fragment>
        </MuiThemeProvider>
      );
